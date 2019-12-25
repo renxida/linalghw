@@ -1,0 +1,236 @@
+\documentclass[12pt]{article} % 
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+
+\usepackage{tcolorbox}
+
+\setlength{\oddsidemargin}{-0.15in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+\setlength{\parskip}{1em}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{{\rm id}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\s}{{\rm span}}
+\newcommand{\norm}[1]{\left|#1\right|}
+
+\DeclareMathOperator{\sgn}{sgn}
+
+
+\renewcommand\le{\leqslant}
+\renewcommand\ge{\geqslant}
+
+
+\newenvironment{mycolorbox}[1][]
+  {\if\detokenize{#1}\relax\relax
+      \begin{tcolorbox}
+    \else
+      \begin{tcolorbox}[#1]
+    \fi
+  \parskip=0.5\baselineskip \advance\parskip by 0pt plus 2pt
+  \parindent=0pt
+}
+  {\end{tcolorbox}}
+
+\begin{document} 
+\noindent
+\textbf{Math 309 -- Intermediate Linear Algebra \quad 
+Homework 5 \hfill Xida Ren}\\
+\begin{center}
+  (Due Friday, March 2)
+\end{center}
+\medskip
+
+Each problem will be graded out of 10 points.
+
+\vspace{1cm}
+
+\begin{flushleft}
+
+1.  Consider the complex numbers $\C$ as a vector space over $\R$.  Define $T: \C \rightarrow \C$ by $T(z) = \overline{z}$, where $\overline{z}$ is the complex conjugate of $z$.  Prove that $T$ is linear and compute $[T]_B$, where $B$ is the standard ordered basis $(1, i)$.  Is $T$ still a linear transformation when $\C$ is viewed as a vector space over $\C$?\\
+
+\begin{mycolorbox}
+  $T$ is linear:
+  \begin{enumerate}
+    \item Additivity:
+
+    Additivity is satisfied: $T(a+bi) + T(c+di) = a-bi + c-di = (a+c) - (b+d)i = T(a+bi+c+di)$
+
+    \item Homogeneity:
+
+    $T(c(a+bi)) = T(ca+cbi) = ca - cbi = c(a-bi) = cT(a+bi)$
+  \end{enumerate}
+
+  Standard matrix:
+
+  In $B$-representation, $a+bi = \begin{bmatrix} a\\b\end{bmatrix}$. So
+  
+  \begin{align*}
+    [T]_B = \begin{bmatrix}
+      1 & 0\\
+      0 & -1
+    \end{bmatrix}
+  \end{align*}
+
+  Linear transformation for $\C$ over $\C$: no: if $c$ is a complex number, we nolonger have homogeneity:
+
+  \begin{align*}
+    (x+yi)T(a+bi) &=
+    (x+yi)(a-bi)\\&=
+    ax + ayi - bxi + by\\&=
+    ax+by + (ay-bx)i
+  \end{align*}
+
+  Now,
+  \begin{align*}
+    T((x+yi)(a+bi)) &=
+    T(ax+ayi + bxi - by)\\&=
+    T((ax-by) + (ay+bx)i)\\&=
+    (ax-by) - (ay+bx)i
+  \end{align*}
+
+  which is different from $ax+by+(ay-bx)i$.
+\end{mycolorbox}
+
+\vspace{.5cm}
+
+2.  Let $T: \F^n \rightarrow \F$ be a linear transformation.  If $\{e_1, \dots, e_n\}$ is the standard basis for $\F^n$, prove that there exist scalars $a_1, \dots, a_n$ such that, if $x = (x_1, \dots, x_n) \in \F^n$, then
+\[ T(x) = \sum_{i=1}^n a_ix_i.\]  Do these scalars need to be unique?\\
+
+\vspace{1cm}
+
+\begin{mycolorbox}
+  They need to be unique.
+  
+  If there are two sets of scalars $a_i$ and $b_i$, consider $\sum_{i=1}^n a_ie_i$ and $\sum_{i=1}^n b_ie_i$. They should be the same, because they both give us $T(x)$.
+
+  Now, subtract the two sums and regroup the terms to get $0 = \sum_{i=1}^n (a_i - b_i)e_i$. If any $a_i$ is different from any $b_i$, there will be nonzero coefficients, which means that $\{e_1,\dots, e_n\}$ is not a basis because a basis must be linearly independent.
+\end{mycolorbox}
+
+A function $f: V \rightarrow W$ is called \textit{additive} if $f(x+y) = f(x) + f(y)$ for all $x,y \in V$.\\
+
+\vspace{.3cm}
+
+3.  If $\R$ is viewed as a vector space over $\Q$, prove that any additive map from $\R$ to $\R$ is also a linear transformation.\\
+
+\begin{mycolorbox}
+  Let $T$ denote our additive map. Because we already have additivity, we only need to prove that $T$ is homogeneous, that it preserves scalar multiplication.
+
+
+  Let $r\in \R$ be a vector in $\R$ over $\Q$. Let $c=\frac{a}{b}$ be a scalar, where $c\in \Q$ and $a, b\in \Z$. By symmetry, assume that $b$ is positive. We split the proof into two cases: where $a$ is positive, and where $a$ is negative.
+
+  For positive $a$ we have:
+  
+  \begin{align*}
+    cr &= \frac{a}{b}r && \text{original equation}\\
+    bcr &= ar && \text{multiply both sides with $b\neq 0$}\\
+    \sum_{i=1}^{b} cr &= \sum_{j=1}^{a} r && \text{expand integer multiplication to summation}\\
+    T\left(\sum_{i=1}^{b} cr\right) &= T\left(\sum_{j=1}^{a} r\right)\\
+    \sum_{i=1}^{b} T(cr) &= \sum_{j=1}^{a} T(r) && \text{$T$ additive}\\
+    bT(cr) &= aT(r) && \text{contract summation to integer multiplication}\\
+    T(cr) &= \frac a b T(r)&& \text{multiply both sides by $b^{-1}$}
+  \end{align*}
+
+  Finally, we have to proveve that $T(-r) = -T(r)$ to cover the negative-$a$ case. Simply use additivity: 
+  
+  \begin{align*}
+    T(-r)&= T(0-r) + T(r) - T(r) & \text{witchcraft}\\
+         &= T(-r+r)-T(r) & \text{additivity}\\
+         &= T(0) - T(r) & \text{definition of additive inverse}\\
+         &= -T(r)       & \text{see below}
+  \end{align*}
+
+  We can do the last step because $T(0+0) = T(0)\implies T(0) + T(0) = T(0) \implies T(0) = 0$.
+
+  So for negative $c$, we can just extract the negative sign, apply homogeneity for positive scalars, and put the sign back in.
+\end{mycolorbox}
+
+\vspace{1cm}
+
+
+4.  Let $V$ be a vector space and $W$ a subspace of $V$.\\  
+\begin{enumerate}[(a)]
+ \item Define the mapping $\rho: V \rightarrow V/W$ by $\rho(v) = v + W$.  Prove that $\rho$ is a linear transformation.
+  \begin{mycolorbox}
+    In hw3, we defined the operations $(v+W)+(u+W) = ((u+v) + W)$ and $c(v+W) = (cv+W)$. By definition, we have additivity ($\rho(u+v) = ((u+v) + W) = \rho(u) + \rho(v)$) and homogeneity ($\rho(av) = (av+W) = a\rho(v)$), so $\rho$ is a linear transformation.
+  \end{mycolorbox}
+ 
+ \item If $V$ is finite-dimensional, how do $\dim(V)$, $\dim(W)$, and $\dim(V/W)$ relate?
+  \begin{mycolorbox}
+    $\dim(V) = \dim(W) + \dim(V/W)$. $V/W$ can be seen as the result of collapsing $V$ along $W\in V$.
+  \end{mycolorbox}
+\end{enumerate}
+
+ 
+
+\vspace{.5cm}
+
+5.  Let $V$ be an $n$-dimensional vector space over $\F$ with ordered basis $B$.  Define $T: V \rightarrow \F^n$ by $T(x) = [x]_B$.  Prove that $T$ is linear.
+
+\begin{mycolorbox}
+\textbf{$T$ is additive:} let $[x]_B = \begin{bmatrix}x_i\end{bmatrix}$, $[y]_B = \begin{bmatrix}y_i\end{bmatrix}$, and $B=\{b_i\}$. We have $x = \sum_{i=1}^n x_i b_i$ and $y = \sum_{i=1}^n y_ib_i$.
+
+Now consider the sum $x+y$. It is equal to $\sum_{i=1}^{n} (x_i + y_i) b_i$. So the coefficients are $[x_i+y_i]$, and they are unique because otherwise, if there are two different sets of coefficients $[c_i]$ and $[c_i']$ that could generate $x+y$ after multiplying with the $\{b_i\}$, we can say $\sum_{i=1}^n (c_i - c_i') b_i = 0$ and conclude that the $b_i$ are linearly dependant, which is impossible.
+
+\textbf{$T$ is homogeneous: } let $x=\sum_{i}^n x_i b_i$. $cx = c\sum_{i}^{n} cx_i b_i$. Extracting the coefficients gives $[cx]_B = c[x]_B$. Again, by the same reasoning, there can be no alternative representation unless $B$ is not a basis.
+\end{mycolorbox}
+
+\vspace{.5cm}
+
+6.  Let $V$ and $W$ be vector spaces such that $\dim(V) = \dim(W)$, and let $T: V \rightarrow W$ be linear.  Prove that there exist ordered bases $B$ (for $V$) and $C$ (for $W$) such that $[T]_B^C$ is a diagonal matrix.\\
+\newcommand{\B}{\mathbb{B}}
+\vspace{1.5cm}
+\begin{proof}
+  Take any basis $B = \{b_1, \dots, b_n\}$ of $V$ let $C$ be a basis of the image of $B$. There is a matrix $M=[T]_B^C$ representing $T$ with input in terms of $B$ and output in terms of $C$.
+
+  Now, we modify $M$ with elementary row/column operations to make it into a diagonal matrix. For each row operation we modify $C$ accordingly to make sure that (1) $C$ is still a basis and (2) $M=[T]_B^C$ or, equivalently, $\forall v\in V: M[v]_B = [T(v)]_C$, still holds.
+
+  Consider the column vector $w\in \F^{\dim(W)}, w=M[v]_B$.
+  \begin{itemize}
+  \item When we swap rows $i$ and $j$ of $M$, the corresponding columns of $w$ also swap. So to make sure $M[v]_B=[T(v)]_C$ we have to swap the corresponding vectors in $C$. $C$ remains a basis, because the vectors are unchanged.
+  
+  \item When we multilpy row $i$ of $M$ by the nonzero scalar $c\in F$, we will have to similarly multiply vector $i$ in $C$ by $c^{-1}$, so that the scalars cancel out when we multiply each $C$-vector by $w$ components to restore $T(v)$. $C$ remains a basis, because origonal $C$ is in the span of the transformed $C$, and linear independance is preserved because if $a_i' \cdot cc_i + \sum_{k\neq i} a_k c_k = 0$ and some of the $a_k$ are not zero, claim by $C$ wasn't an independent set to begin with by setting $a_i$ with $ca_i'$ and showing that $\sum_k a_kc_k = 0$.
+  
+  \item When row $i$ is modified by setting $w_i' = w_i + w_j$, the change has to be inverted in $C$ by letting the new $c_j'=c_j - c_i$. This way,
+  \begin{align*}
+    w_i' c_i + w_j c_j' + \sum_{k\neq i,j} w_k c_k &= (w_i+w_j)c_i + w_j(c_j-c_i) + \sum_{k\neq i,j} w_kc_k\\
+    &= w_ic_i + w_jc_i - w_jc_i + w_jc_j \sum_{k\neq i, j} w_kc_k\\
+    &= \sum_{k} w_kc_k
+  \end{align*}
+  Span of $C$ is preserved because the new old $c_j$ can be restored by adding $c_i$ to the new $c_j'$ because $c_j' + c_i = c_j - c_i + c_i = c_j$.
+  
+  Independence of $C$ is preserved because if
+  \begin{align*}
+    a_i' c_i + a_j' c_j' + \sum_{k\neq i, j} a_k' c_k = 0
+  \end{align*}
+
+  then
+  \begin{align*}
+    a_i' c_i + a_j' (c_j - c_i) + \sum_{k\neq i, j} a_k' c_k &= 0\\
+    a_i' c_i + a_j' c_j - a_j' c_i + \sum_{k\neq i, j} a_k'c_k &=0\\
+    (a_i' - a_j') c_i + a_j' c_j  + \sum_{k\neq i, j} a_k'c_k &=0
+  \end{align*}
+  
+  but now by linear independence of the $c_k$, $(a_i'-a_j')=0, a_j = 0$, and each other $a_k$ is also $0$. So the new $C$ is linearly independent.
+
+  So as we perform row operations on $M$, the basis $C$ could be modified to preserve $[T(v)]_C = M[v]_B$ while still being a basis.
+  \end{itemize}
+
+  \textbf{Could I have written $C$ as a "vector of vectors" and did something differnt but easier involving inverting EROs ?}
+\end{proof}
+ 
+\end{flushleft}
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[12pt]{article} % 
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{-0.15in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{{\rm id}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\s}{{\rm span}}
+\newcommand{\rk}{{\rm rank}}
+\newcommand{\hatF}{{\widehat{F}}}
+
+
+\renewcommand\le{\leqslant}
+\renewcommand\ge{\geqslant}
+
+
+\begin{document} 
+\noindent
+\textbf{Math 309 -- Intermediate Linear Algebra \quad 
+Homework 7 \hfill Your name}\\
+\begin{center}
+  (Due Friday, March 30)
+\end{center}
+\medskip
+
+Each problem will be graded out of 10 points.
+
+\vspace{1cm}
+
+\begin{flushleft}
+
+1.  Calculate $\det(A)$, where $A = \left(\begin{matrix}
+                                     1 & 2 & 3 & 4 \\
+                                     1 & 5 & 6 & 7 \\
+                                     1 & 8 & 9 & 11\\
+                                     1 & 10 & 13 & 15\\
+                                    \end{matrix}\right)$.\\
+                                    
+\vspace{.5cm}
+
+
+2.  Is the function $\det: M_2(\F) \rightarrow \F$ ever a linear transformation?\\
+
+\vspace{.5cm}
+
+
+3.  Let $T: V \rightarrow W$ be a linear transformation between finite-dimensional vector spaces $V,W$, and let $\beta$, $\gamma$ be ordered bases for $V$, $W$, respectively.  Prove that $\rk(T) = \rk([T]_\beta^\gamma)$.\\
+
+\vspace{.5cm}
+
+4.  Let $V$ be an $n$-dimensional vector space over $\F$ with basis $\beta = (v_1, \dots, v_n)$, and let $T: V \rightarrow V$ be a linear transformation such that $T(v_i) = \lambda_i v_i$ for each $i$, where $\lambda_i \in \F$.  Using the exterior algebra definition of the determinant of a linear transformation, prove that \[\det(T) = \prod_{i=1}^n \lambda_i.\]
+
+\vspace{.5cm}
+
+5.  Let $V$, $W$ be vector spaces over $\F$.  Prove that the set $\mathcal{L}(V^k, W)$ of $k$-linear maps from $V^k$ to $W$ is a vector space over $\F$.\\
+
+\vspace{.5cm}
+
+6.  Let $V$, $W$ be vector spaces over $\F$, let $\dim(V) = n$, and let $F: V^n \rightarrow W$ be alternating and $n$-linear.  If $\hatF: \ \bigwedge^n V \rightarrow W$ is defined by $\hatF(u_1 \wedge \dots \wedge u_n) := F(u_1, \dots, u_n)$, then prove that $\hatF$ is a linear transformation.\\
+
+
+ 
+
+
+
+ 
+\end{flushleft}
+
+\end{document}

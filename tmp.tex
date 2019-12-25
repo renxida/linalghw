@@ -1,0 +1,63 @@
+
+  \textbf{Addition} All properties of addition are guaranteed because the two field candidates behave just like two copies of $\Z_7$ bound together.
+
+  \textbf{Multiplication} For multiplication, we have commutativity by commutativity in $\R$. We now prove assocativity of multiplication and its distributivity over addition.
+
+  \begin{itemize}
+    \item Associativity
+
+    Define a function $R$ that takes a member of $\Z[\sqrt 5]$ back to $\Z_7[\sqrt5]$ by taking the $7$-modulus of each of $a$ and $b$ in the $a+b\sqrt5$ representation of a member of $\Z_7[\sqrt5]$. We show that multiplication passes through $R$, i.e. for any $x,y \in \Z[\sqrt5]$, $R(x \cdot R(y)) = R(xy)$. Then, by assocativity in $\Q[\sqrt5]$, we will have associativity in $\Z_7[\sqrt5]$.
+    
+    In the following proof, we denote the modulus-$7$ remainder of an integer $n$ with $r(n)$. The constants $C_1, C_2, C_3, C_4$ denote integer quotients we don't care about.
+
+    \begin{align*}
+      R(x\cdot R(y)) &= R(x \cdot (r(a_y) + r(b_y)\sqrt 5))\\
+      &= R(a_x r(a_y) + b_xr(b_y) + (a_x r(b_y) + b_x r(a_y))\sqrt5)\\
+      &= r(a_x r(a_y) + b_xr(b_y)) + r\left(
+        a_x r(b_y) + b_x r(a_y)
+        \right)\sqrt5\\
+      &= r(a_x (a_y + 7C_1) + b_x (b_y + 7C_2)) + r\left(a_x (b_y + 7C_3) + b_x (a_y + 7C_4\right)\sqrt5\\
+      &= r(a_x a_y + b_x b_y + 7(a_xC_1 + b_xC_2)) + r\left(a_xb_y + b_x a_y + 7(a_x C_3 + b_x C_4)\right)\sqrt5\\
+      &= r(a_x a_y + b_x b_y) + r(a_x b_y + b_x a_y) \sqrt5\\
+      &= R(x\cdot y)
+    \end{align*}
+
+    Now, if we multiply three members of $\Z[\sqrt5]$ but apply $R$ after each multiplication, we get the same result no matter how we order the multiplications:
+
+    \begin{align*}
+      R(x\cdot R(y\cdot z)) &= R(x\cdot(y\cdot z))\\
+      &= R((x\cdot y)\cdot z) \\
+      &= R(z\cdot (x\cdot y))\\
+      &= R(z\cdot R(x\cdot y))\\
+      &= R(R(x\cdot y)\cdot z)
+    \end{align*}
+
+    So associativity is preserved.
+
+    \item Distributivity
+    
+    Again, we want to prove that we can take our numbers to $\Z[\sqrt5]$, multiply them, and take them back. I.e. we want to prove that $R$ satisfies $R(x\cdot R(y+z)) = R(R(xy) + R(yz))$ for $x, y, z$ in $\Z[\sqrt5]$. For this, we need another identity about $R$ in addition to the one we proved for associativity: $R(x+y) = R(R(x) + R(y))$.
+
+    This is simple: addition does not mix the $a$ and $b$ components of an element of $\Z[\sqrt5]$, so by $(s \mod 7 + t \mod 7)\mod 7 = (s+t) \mod 7$, we have our identity.
+
+    So then, distributivity can be proven like this:
+
+    \begin{align*}
+      R(z\cdot R(x+y)) &= R(z\cdot(x+y)) && \text{old identity}\\
+      &= R(z\cdot x + z\cdot y) \text{distributivity in $Z[\sqrt5]$}\\
+      &= R(R(z\cdot x) + R(z\cdot y)) && \text{new identity}\\
+    \end{align*}
+    
+
+    
+    
+  \end{itemize}
+
+  Finally, we also need the identities and inverses for addition and multiplication.
+
+  The identities are just $0+0\sqrt5$ and $1+0\sqrt5$. The additive inverse of any $a+b\sqrt5$ is just $(7-a) + (7-b)\sqrt5$. The multiplicative inverse is a bit more interesting.
+
+  Let $x$ be any element of the form $a+b\sqrt5 \in \Z_7[\sqrt5]$. We prove that as long as $x\neq 0$ it will have an inverse.
+
+  We know that $(a+b\sqrt5)\cdot (a-b)\sqrt5 = a^2 - 5b^2$. If it is nonzero, it will have multiplicative inverse $c$. Then we have $(a+b\sqrt5) \cdot (a-b\sqrt5)\cdot c = 1$. Now let's consider all posibilities of $a^2$ and $b_2$. We have this table of squares in 
+  

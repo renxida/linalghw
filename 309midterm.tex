@@ -1,0 +1,250 @@
+\documentclass[12pt]{article}
+
+    \usepackage{setspace}
+    \usepackage{latexsym}
+    \usepackage{amsfonts}
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{enumerate}
+    \usepackage[margin=0.5in,nohead]{geometry}
+    \usepackage{graphicx}
+    
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\id}{{\rm id}}
+    \newcommand{\GL}{{\rm GL}}
+    \newcommand{\Hom}{{\rm Hom}}
+    \newcommand{\Sym}{{\rm Sym}}
+    \newcommand{\Tr}{{\rm Tr}}
+    
+    \renewcommand\le{\leqslant}
+    \renewcommand\ge{\geqslant}
+    
+    \newenvironment{proof}{\paragraph{Proof:}}{\hfill$\square$}
+    
+    
+    
+    \begin{document}
+    
+    
+    \noindent Prof. Eric Swartz \hspace{3.5in} NAME: Xida Ren\\
+    Math 309\\
+    
+    
+    \begin{center}
+    \textbf{{\Large  MIDTERM}}
+    \end{center}
+    
+    
+    \noindent1.
+    \begin{enumerate}[(a)]
+    \item (10 points) Prove that there exists a linear transformation $T: \R^2 \rightarrow \R^3$ with $T((1,1)) = (1,2,3)$ and $T((1,2)) = (0,0,1)$.
+    
+    \begin{proof}
+        \begin{align*}
+            T(\begin{bmatrix}
+                1\\2
+            \end{bmatrix})
+            -
+            T(\begin{bmatrix}
+                1\\1
+            \end{bmatrix})
+            & =
+            T(\begin{bmatrix}
+                0\\1
+            \end{bmatrix})
+            =
+            \begin{bmatrix}
+                -1\\2\\2
+            \end{bmatrix}
+            &\text{linearity}\\
+            %
+            %
+            T(\begin{bmatrix}
+                1\\1
+            \end{bmatrix})
+            -
+            T(\begin{bmatrix}
+                0\\1
+            \end{bmatrix})
+            & =
+            T(\begin{bmatrix}
+                1\\0
+            \end{bmatrix})
+            =
+            \begin{bmatrix}
+                2\\4\\5
+            \end{bmatrix}
+            &\text{linearity}
+        \end{align*}
+    \end{proof}
+    \item (10 points) If $T$ is as defined in (a), then what is $T((1,0))$?
+    
+    \begin{proof}
+        $$
+        T(\begin{bmatrix}
+            1\\0
+        \end{bmatrix})
+        =
+        \begin{bmatrix}
+            2\\4\\5
+        \end{bmatrix}    $$
+    \end{proof}
+    
+    \end{enumerate}
+    
+    \newpage
+    
+    
+    \noindent2.  Let $V$ be the vector space of all sequences $\{a_n\}$ with entries from $\F$.  Define two functions $L, R: V \rightarrow V$ by
+    \[ L ((a_1, a_2, \dots)) = (a_2, a_3, \dots),\]
+    \[ R((a_1, a_2, \dots)) = (0, a_1, a_2, \dots).\]
+    \begin{enumerate}
+     \item[(a)] (10 points) Prove that $L,R$ are both linear.
+    
+     \begin{proof}
+         \begin{enumerate}
+            \item[(1)] Additivity
+            \begin{align*}
+                L((a_1, a_2,\ldots )) + L((b_1, b_2, \ldots )) &=
+                (a_2, a_3, \ldots ) + (b_2, b_3, \ldots)\\
+                &= (a_2+b_2, a_3+b_3, \ldots)\\
+                &= L((a_1+b_1, a_2+b_2, \ldots))\\
+                &= L((a_1, a_2,\ldots ) + (b_1, b_2, \ldots))
+            \end{align*}
+    
+            Similarly,
+            \begin{align*}
+                R((a_1, a_2,\ldots )) + R((b_1, b_2, \ldots )) &=
+                (0, a_1, a_2, \ldots ) + (0, b_1, b_2, \ldots)\\
+                &= (0, a_1+b_1, a_2+b_2, \ldots)\\
+                &= R((a_1+b_1, a_2+b_2, \ldots))\\
+                &= R((a_1, a_2,\ldots ) + (b_1, b_2, \ldots))
+            \end{align*}
+    
+            \item[(2)] Homogeniety
+    
+            For $i\ge 1$, The $i$th term of $L(c\{a_i\})$ is $ca_{i+1}$ and the $i$th term of $cL(\{a_i\})$ is also $ca_{i+1}$, so the two are the same.
+    
+            Similarly, for $i\ge 2$, the $i$th term of $R(c\{a_i\})=R(\{ca_i\})$ is $ca_{i-1}$ and the $i$th term of $cR(\{a_i\})$ is also $ca_{i-1}$. For $i=1$, the $1$st term of $R(x_i)$ is $0$ for any sequence. So the two are the same.
+    
+        \end{enumerate}
+     \end{proof}
+    
+     \item[(b)] (5 points) Prove that $L$ is surjective but not injective.
+    
+     \begin{proof}
+         $L$ is surjective: every sequence $\{a_i\}$ can be outputted by $L$ because $L((0, a_1, a_2, \ldots)) = (a_1, a_2,\ldots)$.
+    
+         $L$ is not injective: $L((0, a_1, a_2, \ldots)) = L((1, a_1, a_2, \ldots)) = (a_1, a_2,\ldots)$.
+     \end{proof}
+     \item[(c)] (5 points) Prove that $R$ is injective but surjective.
+    
+     \begin{proof}
+         $R$ is injective because if any two sequences $\{a_i\}, \{b_i\}$ differ at position $i$, after applying $R$ they must differ at position $i+1$.
+    
+         $R$ is not surjective because $R$ cannot output sequences whose first term is not $0$.
+     \end{proof}
+    \end{enumerate}
+    
+    
+    
+    \newpage
+    
+    \noindent3. Let $A$, $B$ be $n \times n$ matrices.  Recall that the \textit{trace} of $A$ is defined by
+    \[ \Tr(A) = \sum_{i=1}^n a_{ii},\]
+    where $A = (a_{ij})$.
+    \begin{enumerate}[(a)]
+     \item (10 points) Prove that $\Tr(A) = \Tr(A^t)$, where $A^t$ is the \textit{transpose} of $A$.
+     \begin{proof}
+     We know that
+     \[ \Tr(A) = \sum_{i=1}^n a_{ii}\]
+    
+     Because $A^T$ is defined by $a^T_{ij} = a_{ji}$, we have
+     \[ \Tr(A) = \sum_{i=1}^n a^T_{ii} =\sum_{i=1}^n a_{ii} =\]
+    
+     Which is the same as the trace of $A$.
+     \end{proof}
+    
+     \item (10 points) Prove that $\Tr(AB) = \Tr(BA)$.
+    
+     \begin{proof}
+      \begin{align*}
+        \Tr(AB) &= \sum_{i=1}^n (AB)_{ii} & \text{definition of trace}\\
+        &= \sum_{i=1}^n \sum_{j=1}^n a_{ij}b_{ji} &\text{def. of product}\\
+        &= \sum_{j=1}^n \sum_{i=1}^n b_{ji}a_{ij} &\text{rearrangement}\\
+        &= \sum_{j=1}^n (BA)_{jj} &\text{def. of product}\\
+        &=\Tr(BA) &\text{def. of trace}
+        \end{align*}
+     \end{proof}
+    \end{enumerate}
+    
+    
+    \newpage
+    
+    \noindent4. (20 points) If $A$ is an $m \times n$ matrix and $B$ is an $n \times p$ matrix, prove that
+    \[(AB)^t = B^t A^t,\]
+    where $M^t$ denotes the \textit{transpose} of the matrix $M$.
+    \begin{proof}
+    
+    We prove that for all $i,j$ in bounds, entry $ij$ of $(AB)^T$ is the same as entry $ij$ of $B^TA^T$.
+    
+    Entry $ij$ of $(AB)^T$ is entry $ji$ of $AB$. Entry $ji$ of $AB$ is the dot product of the $j$th row of $A$ and the $i$th column of $B$, by the definition of matrix products.
+    
+    Entry $ij$ of the product $B^TA^T$ is the product of the $i$th row of $B^T$ and the $j$th column of $A^T$. Because transposition swaps the first and second indices, rows of $M^T$ are the columns of $M$ and vice versa. So row $i$ of $B^T$ is actually column $i$ of $B$ and column $j$ of $A^T$ is actually row $j$ of $A$. So entry $ij$ of $B^TA^T$ is just the product of row $j$ of $A$ and column $i$ of $B$, which is the same as entry $ij$ of $(AB)^T$.
+    
+    Symbolically,
+    
+    \begin{align*}
+    (AB)^T_{ij} &= (AB)_{ji} & \text{def. of transposition}\\
+    &= \sum_{k=1}^n A_{jk}B_{ki} &\text{def. of product}\\
+    &= \sum_{k=1}^n B^T_{ik}A^T_{kj} &\text{swap indices for transpose}\\
+    &= (B^TA^T)_{ij} &\text{def. of product}
+    \end{align*}
+    
+    \end{proof}
+    \newpage
+    
+    \noindent5. (20 points) Let $\beta$ be a subset of an infinite-dimensional vector space $V$.  Prove that $\beta$ is a basis for $V$ if and only if for each nonzero vector in $V$, there exist unique vectors $u_1, \dots, u_n$ in $\beta$ and and unique nonzero scalars $c_1, \dots, c_n$ such that $v = c_1u_1 + c_2u_2 + \cdots + c_nu_n.$\\
+    
+    
+    \noindent\textbf{Only if:}
+    \begin{proof}
+        Suppose $\beta$ is a basis.
+    
+        A basis has to span $V$, and it has to be linearly independent.
+    
+        By definition of spanning, for each $v\in V$, $v$ can be expressed as some finite linear combination of $n$ vectors in $b_i\in \beta$, with coefficients $c_1\ldots c_n$. So
+        \begin{align*}
+            v = \sum_{i=1}^n c_i b_i
+        \end{align*}
+        
+        Now we prove that the scalars $c_i$ are unique.
+        
+        Suppose there are two ways to get $v$ as finite linear combinations of vectors in $\beta$. Let $$B=\{b_1\ldots b_n\}$$ be the union of the $\beta$-vectors used in each of the ways.
+        
+        For the first way, there will be coefficients $c_i$ such that $$\sum_{i=1}^n c_i b_i = v$$. Similarly, there exists $d_i$ s.t. $$\sum_{i=1}^n d_ib_i = v$$. 
+        
+        Now, if the $c_i$ and the $d_i$ are different, for some $i$, $c_i-d_i\neq 0$.
+        
+        But that means that because $\sum_{i=1}^n (d_i-c_i)b_i = v-v= 0$, $B$ is linearly dependant, which means that $\beta$ couldn't have been a basis.
+    \end{proof}
+    
+    \noindent\textbf{If:}
+    
+    \begin{proof}
+        Suppose that for each nonzero vector in $V$, there exist unique vectors $u_1, \dots, u_n$ in $\beta$ and and unique nonzero scalars $c_1, \dots, c_n$ such that $v = c_1u_1 + c_2u_2 + \cdots + c_nu_n.$ We prove that $\beta$ is a basis: a linearly independant spanning set.
+        
+        Because each $v\in V$ can be expressed as a linear combination of vectors in $\beta$, we already know that it spans $V$.
+        
+        Suppose that $\beta$ is not linearly independant. Then some $u_k\in \beta$ can be expressed as a linear combination of the other vectors in $\beta$. Then $u_k\in V$ can be expressed as two different linear combinations of vectors in $\beta$: $1\cdot u_k$ and however $u_k$ is expressed in terms of the other vectors, violating our assumption.
+    \end{proof}
+    
+    \newpage
+    
+    
+    \end{document}
+    

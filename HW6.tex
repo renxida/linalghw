@@ -1,0 +1,272 @@
+\documentclass[12pt]{article} % 
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+
+\usepackage[many]{tcolorbox}
+\tcbuselibrary{breakable}
+\newenvironment{mycolorbox}[1][]
+  {\if\detokenize{#1}\relax\relax
+      \begin{tcolorbox}[breakable, enhanced]
+    \else
+      \begin{tcolorbox}[#1][breakable, enhanced]
+    \fi
+  \parskip=0.5\baselineskip \advance\parskip by 0pt plus 2pt
+  \parindent=0pt
+}
+  {\end{tcolorbox}}
+
+
+\def\lparen{(}% left parenthesis (
+\catcode`(=\active
+\newcommand{(}{\ifmmode\left\lparen\else\lparen\fi}
+\def\rparen{)}% right parenthesis )
+\catcode`)=\active
+\newcommand{)}{\ifmmode\right\rparen\else\rparen\fi}
+
+\newif\ifnotfinal
+\notfinaltrue
+
+\setlength{\oddsidemargin}{-0.15in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\id}{{\rm id}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\s}{{\rm span}}
+
+
+\renewcommand\le{\leqslant}
+\renewcommand\ge{\geqslant}
+
+
+\begin{document} 
+\noindent
+\textbf{Math 309 -- Intermediate Linear Algebra \quad 
+Homework 6 \hfill Your name}\\
+\begin{center}
+  (Due Friday, March 16)
+\end{center}
+\medskip
+
+Each problem will be graded out of 10 points.
+
+\vspace{1cm}
+
+\begin{flushleft}
+
+1.  Let $B$ be the standard ordered basis $(1,x,x^2,x^3)$ of $P_3(\R)$, and let $C$ be the basis $(f_0, f_1, f_2, f_3)$ of Lagrange polynomials associated with constants $c_i$, where $c_i = i$ for each $i$, $0 \le i \le 3$.  What is the change of coordinates matrices $Q$ from $C$ to $B$ and $Q^{-1}$ from $B$ to $C$?\\
+
+\begin{mycolorbox}
+  Represent each polynomial as a column vector in terms of the standard basis.
+
+  Let $[v]_C$ be a polynomial represented in terms of the larange basis. We can see that left-multiplying it by the matrix
+  \[
+    Q=\begin{bmatrix}
+      | & | & | & |\\
+      f_0 & f_1 & f_2 & f_3\\
+      | & | & | & |
+    \end{bmatrix}
+    =
+    \left[\begin{matrix}1 & 0 & 0 & 0\\- \frac{11}{6} & 3 & - \frac{3}{2} & \frac{1}{3}\\1 & - \frac{5}{2} & 2 & - \frac{1}{2}\\- \frac{1}{6} & \frac{1}{2} & - \frac{1}{2} & \frac{1}{6}\end{matrix}\right]
+  \]
+
+  gives its standard-basis representation.
+
+
+  To find $Q^{-1}$ we know that for the vandermonde matrix
+
+  \[
+    M = \begin{bmatrix}
+      1&0&0&0\\
+      1&1&1&1\\
+      1&2&4&8\\
+      1&3&9&27
+    \end{bmatrix}
+  \],
+
+  $MQ = I$ because $\begin{bmatrix}c_i^0&c_i^1&c_i^2&c_i^3\end{bmatrix}\begin{bmatrix}|\\f_j\\|\end{bmatrix} = \delta_{i, j}$ where $\delta_{i,j}$ is the Kronecker delta which is only $1$ when $i=j$ and $0$ otherwise.
+
+  Because the standard basis is inside the image of $Q$, $Q$ is a surjection. Because the domain and range of $Q$ are both $P_3$, $Q$ is also an injection and thus invertible. This means that $MQ = QM = I$ and $M=Q^{-1}$.
+\end{mycolorbox}
+
+\ifnotfinal
+\pagebreak
+\fi
+
+\vspace{.5cm}
+
+2.  Using the notation from \#1, what is the matrix of the differentiation map $D: P_3(\R) \rightarrow P_3(\R)$, where $D(f) = df/dx$ with respect to the basis $C$?\\
+
+\begin{mycolorbox}
+  The differentiation map on $P_3(\R)$ with respect to the standard basis is
+
+  \[
+    D = \begin{bmatrix}
+      0&1&0&0\\
+      0&0&2&0\\
+      0&0&0&3\\
+      0&0&0&0
+    \end{bmatrix}
+  \]
+
+  Left multipying any standard vector representation of a polynomial by $D$ gives the standard vector representation of its derivative.
+
+  Now, for vectors represented in terms of $C$, we can use $Q$ to map it from basis-$C$ to the standard basis, transform with $D$, and then map it back with $Q^{-1}$. So $Q^{-1}DQ$ is the matrix we want.
+\[
+\left[\begin{matrix}- \frac{11}{6} & 3 & - \frac{3}{2} & \frac{1}{3}\\- \frac{1}{3} & - \frac{1}{2} & 1 & - \frac{1}{6}\\\frac{1}{6} & -1 & \frac{1}{2} & \frac{1}{3}\\- \frac{1}{3} & \frac{3}{2} & -3 & \frac{11}{6}\end{matrix}\right]
+\]
+\end{mycolorbox}
+
+\ifnotfinal
+\pagebreak
+\fi
+\vspace{.5cm}
+
+3.  Prove that isomorphism of vector spaces is an equivalence relation.  (Denote ``$V$ is isomorphic to $W$'' by $V \cong W$.)\\
+
+\begin{mycolorbox}
+  We need reflexivity, symmetry, and transitivity.
+
+  \textbf{Reflexivity} is guaranteed by the identity transform in each space: each space is equivalent to itself because the identity transformation is a homomorphism with an inverse.
+
+  \textbf{Symmetry:} if there is an invertible linear transformation $T$from $V$ to $W$, then there must be an invertible linear transformation $T^{-1}$ from $W$ to $V$ simply because $T$ is invertible. Hence $V\cong W$ i.i.f. $W\cong V$.
+  
+  \textbf{Transitivity} comes from composing linear transformations. Let $U,V,W$ be vector spaces. Let $S: U\to V$ and $T: V\to W$ be invertible linear transformations. Then their compsition $T\circ U$ is an invertible linear transformation from $U$ to $W$, because $(T\circ U)^{-1} = (U^{-1}\circ T^{-1})$.
+\end{mycolorbox}
+
+\vspace{0.5cm}
+
+\ifnotfinal
+\pagebreak
+\fi
+
+4.  
+\begin{enumerate}[label=(\alph*)]
+  \item  Let $A$ and $B$ be $n \times n$ matrices such that $AB$ is invertible.  Prove that $A$ and $B$ are invertible.\\
+
+  \begin{mycolorbox}
+    The matrices are invertible if and only if the linear transformations they represent are invertible. Furthermore, the ranks are guaranteed the same by Thm. 3.3. So it makes sense to talk about matrices as if they were linear transformations.
+    
+    First, notice that each of $A,B, AB$ has dimensionality $n$ for both its domain and range. Let $C$ be the inverse of $AB$.
+
+    Because $AB$ is invertible, it is on-to and one-to-one. By Theorem 2.5, it must have rank $n$. Because it's the composition of $A,B$ with $A$ applied last, the output space of $A$ contains the output space of $AB$. This implies that the output space of $A$ is at least rank-$n$. Since the matrices corresponding to each of these linear transformations is $n\times n$, the rank of $A$ is exactly $n$ and so by another application of Theorem 2.5 $A$ is invertible.
+
+    $B$ is also invertible: because $C=(AB)^{-1}$, $C(AB) = I_n$. By associativity, $CA(B) = I_n$. Because the product of invertible matrices is invertible, $CA$ is invertible. Also, $CA$ has rank $n$. $I_n$ also has rank $n$, so because invertible matrices are rank-preserving, $B$ has rank $n$ and is invertible.
+  \end{mycolorbox}
+  \item Use (a) to prove that, if $AB = I$, then both $A$ and $B$ are invertible and $BA = I$.\\
+  \begin{mycolorbox}
+    $AB=I$ is invertible because the identity matrix is invertible. By (a), $A,B$ are both invertible.
+
+    To prove that $BA=I$, we first prove the intermediate result that $B^{-1} A^{-1} = I$.
+
+    \begin{align*}
+      B^{-1}A^{-1} &= IB^{-1}A^{-1}I & \text{identity}\\
+      &= ABB^{-1}A^{-1}AB & \text{Because $AB=I$}\\
+      &= A(BB^{-1})(AA^{-1})B & \text{assocativit}\\
+      &= AIIB\\
+      &= AB\\
+      &= I
+    \end{align*}
+
+    Using this identity, we have
+    \begin{align*}
+      BA &= BIA\\
+      &= B(B^{-1}A^{-1})A &\text{identity}\\
+      &= (BB^{-1})(A^{-1}A) &\text{associativity}\\
+      &= II\\
+      &= I
+    \end{align*}
+  \end{mycolorbox}
+
+\end{enumerate}
+\vspace{0.5cm}
+
+\ifnotfinal
+\pagebreak
+\fi
+
+
+5.  Let $V$, $W$ be nonzero vector spaces over $\F$ and let $B$ be a basis for $V$.  Prove that for any function $f: B \rightarrow W$ there exists exactly one linear transformation $T$ such that $T(x) = f(x)$ for all $x \in B$.  (Note that $V$ is not assumed to be finite-dimensional here!)\\
+
+\vspace{.5cm}
+\begin{mycolorbox}
+
+  Even though $V$ might be infinite-dimensional, the definition of linear combination (and hence span and dependence) only involves a finite number of vectors and coefficients, so we may use them safely.
+
+  \textbf{Existance:}
+  
+  Any vector in $v\in V$ can be written as a linear combination of a finite subset of the basis, $v = \sum_i a_i x_i$ where $a_i\in \F$ and $x_i \in B$. Let the transformation $T$ take $v$ to $\sum_i a_i f(x_i)$. $T$ is linear because
+  \begin{align*}
+    T(cv+v') &= T(c(\sum_i a_i x_i) + (\sum_i a_i' x_i))\\
+    &= T(\sum_i (ca_i + a_i') x_i)\\
+    &= \sum_i (ca_i + a_i')f(x_i)\\
+    &= c\sum_i ca_i f(x_i) + \sum_i a_i' f(x_i)\\
+    &= cT(v) + T(v')
+  \end{align*}
+  
+  
+  \textbf{Uniqueness:}
+
+  Suppose $T(x) = T'(x)$ for each $x\in B$, but $T\neq T'$. Then there exists a $v\in V$ such that $T(v) \neq T'(v)$, as linear transformations are defined by their input-output pairs.
+
+  Now $v$ can be written as a linear combination $v = \sum_i a_ix_i$ for some finite set of vectors $x_i \in B$, as $B$ spans $V$.
+  
+  The $a_i$ are unique, because if two different sets of $a_i$ produce the same $v$, $B$ can be shown to be linearly dependent.
+
+  Apply the linear transformations $T, T$ to $v$ and then use linearity to distribute the transformations to the sums. We get: $$T(v) = \sum_{i} a_i T(x_i)$$  and $$T'(v) = \sum_{i} a_i T'(x_i)$$.
+
+  But because $T(x_i) = T'(x_i)$, all terms are equal and their sum is equal. So $$T(v) = T'(v)$$. Thus there cannot exist two linear transformations mapping the same input 
+to different outputs while having the same mappings for a basis.
+\end{mycolorbox}
+\ifnotfinal
+\pagebreak
+\fi
+6.  Let $V$ be a nonzero vector space, and let $W$ be a proper subspace of $V$.  Prove that there exists a nonzero linear functional $f \in V^\ast$ such that $f(x) = 0$ for all $x \in W$.\\
+\textbf{HINT:}  Use \#5 on this HW for the infinite case.
+ 
+
+\begin{mycolorbox}
+  Take any basis $A$ of $W$ and augment it into a basis $V$, $B$. This can be done because of the result of HW4 problem 6. Call the resulting $V$-basis $B$.
+  
+  There are elements of $B$ that are not in $W$, or else $W$ would contain $V$ since the span of any subset of $W$ is contained in $W$. So there are elements of $B$ not in $W$.
+
+  Define a function $f:B\to \F$ such that
+  \[
+    f(b)=
+    \begin{cases}
+      0 & b \in A \\
+      1 & \text{otherwise}
+    \end{cases}
+  \]
+
+  Now, apply the existance part of \#5 to arrive at a linear transformation $T:W\to \F$ such that for each $b\in B$, $T(b) = f(b)$. $T$ is a linear functional.
+
+  $T(w)=0$ for each $w\in W$: we know $$w=\sum_i c_i a_i$$ for coefficients $c_i \in \F$ and vectors $a_i\in A$. But this means that 
+  \begin{align*}
+    T(w) &= T(\sum_i c_i a_i)\\
+    &= \sum_i c_i T(a_i) & \text{linearity of $T$}\\
+    &= \sum_i c_i \cdot 0\\
+    &= 0
+  \end{align*}
+
+  $T$ is nonzero because for all $x \in B$ but $x\not\in A$, $T(x) = 1$.
+\end{mycolorbox}
+
+
+\end{flushleft}
+
+\end{document}
